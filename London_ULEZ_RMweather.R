@@ -34,7 +34,7 @@ mydata <- read.csv(text = x)
 mydata$date <- as.POSIXct(strptime(mydata$date, format = "%Y-%m-%d %H:%M:%S", tz = "GMT"))
 ## This is an example data for weather Normalisation cantined time, AQ data, atmospheric conditions and back trajectory clusters.
 
-## Creating some time relevent varibles for removing time scale effect
+## Creating some time relevent varibles
 mydata$date_unix  <- as.numeric(mydata$date)
 mydata$week <- week(mydata$date)
 mydata$weekday <- weekdays(mydata$date, abbreviate = TRUE) 
@@ -50,8 +50,8 @@ mydata$month <- month(mydata$date)
 mydata$day_julian <- yday(mydata$date)
 
 
-# the pollutant list
-pollutantlist<-list("PM2.5","PM10",	"SO2",'NO',"NO2","NOx","O3")
+# Pollutant list
+pollutantlist<-list("PM2.5","PM10","SO2",'NO',"NO2","NOx","O3")
 ncal=5
 
 
@@ -76,7 +76,7 @@ for (pollutant in pollutantlist){
             "date_unix","day_julian", "weekday", "hour", "temp",  "RH", "ws","wd","pressure",'ssr','tp','blh','tcc','sp'), #factors for random forest modeling
           variables_sample=c("temp",  "RH", "ws","wd","pressure",'ssr','tp','blh','tcc','sp'), #factors for weather replacement
           n_trees = 300,
-          n_samples = 150,
+          n_samples = 300,
           verbose = TRUE
         ) # RM weather model
         
