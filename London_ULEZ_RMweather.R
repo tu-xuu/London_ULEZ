@@ -99,3 +99,6 @@ for (pollutant in pollutantlist){
   }    
 
 
+AQ<-cbind(RF_modelo$normalised,RF_modelo$observations$value)
+names(AQ)[names(AQ) == "value_predict"] <- 'Normalised_data'
+names(AQ)[names(AQ) == "RF_modelo$observations$value"] <- 'Observation'
