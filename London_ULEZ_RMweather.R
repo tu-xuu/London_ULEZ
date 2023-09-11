@@ -90,15 +90,24 @@ for (pollutant in pollutantlist){
           r.min <- model_performance$r
           RF_modelo <- RF_model} 
       } 
-      save.image(file ='mydata.Rdata') 
+      save.image(file = paste("./",pollutant,"_RW",".RData",sep="")) 
       # The result will be saved in RF_modelo the normalisede one is 'RF_modelo$normalised' and observation is 'RF_modelo$observations$value'
-      write.table(perform, file="RWPerformance.csv", sep=",", row.names=FALSE)
+      write.table(perform, file=paste("./",pollutant,"_RWPerformance.csv",sep=""), sep=",", row.names=FALSE)
     }else{
       print(paste('Do not have',pollutant,sep=' '))
     }
-  }    
+  } 
 
-
-AQ<-cbind(RF_modelo$normalised,RF_modelo$observations$value)
-names(AQ)[names(AQ) == "value_predict"] <- 'Normalised_data'
-names(AQ)[names(AQ) == "RF_modelo$observations$value"] <- 'Observation'
+#load the data and output as CSV file
+pollutantlist<-list("PM2.5","PM10","SO2",'NO',"NO2","NOx","O3")
+for (pollutant in pollutantlist){
+    filename=paste("./",pollutant,"_RW",".RData",sep="")
+    load(filename)
+    AQ<-cbind(RF_modelo$normalised,RF_modelo$observations$value)
+    columnname=paste(pollutant,'wn',sep='')
+    names(AQ)[names(AQ) == "value_predict"] <- columnname
+    names(AQ)[names(AQ) == "RF_modelo$observations$value"] <- pollutant
+    outputfilename=paste("./",pollutant,"wn_results",'.csv')
+    write.csv(AQ,outputfilename,row.names=FALSE)
+    print(outputfilename,'has been written',sep=' ')
+    }
