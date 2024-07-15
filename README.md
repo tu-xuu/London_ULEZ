@@ -1,7 +1,14 @@
 # London_ULEZ code 
 This respiratory contains Tuan's methods to run Weather Normalization. 
 
-The main function
+The main function is Main_code_Tuan.R
+File reading, setting up the environment, and processing WN are all included in this file.
+
+Time_processing.R and Tuan_method.R are the functions that will be sourced in the main function.
+
+More information can be found in the main function.
 
 If you have any questions please let me know.
 
+# Reference
+[R/02. weather_normalised_parallel_new.R](https://github.com/tuanvvu/Air_quality_trend_analysis.git)
