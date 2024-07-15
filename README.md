@@ -11,4 +11,4 @@ More information can be found in the main function.
 If you have any questions please let me know.
 
 # Reference
-[R/02. weather_normalised_parallel_new.R](https://github.com/tuanvvu/Air_quality_trend_analysis.git)
+https://github.com/tuanvvu/Air_quality_trend_analysis.git
