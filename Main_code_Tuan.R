@@ -36,12 +36,12 @@ for (package in packages) {
   check_and_load_package(package)
 }
 
-source('./Time_processing.R')
-source('./Tuan_method.R')
+source('./Time_processing.R') # Modified the date column
+source('./Tuan_method.R') # The function to run the Tuan's method
 
 
 
-sitenames=c('AQ_MET_traj_London_Avg2_UB'
+sitenames=c('AQ_MET_traj_London_Avg1_UT'
            ) 
 ### Add more site names
 
@@ -71,22 +71,11 @@ for (sitename in sitenames) {
   #########
   mydata<-read.csv(paste("../",sitename,".csv",sep="")) %>%Time_processing()
   ##### The data with AQ to build a Model
-  
+
+  ### Get ready the MET database
   data_MET <-mydata%>%
     selectByDate(year=2017:2022)
   
-  
-  # mydata<-read.csv(paste("../",sitename,".csv",sep="")) %>%
-  #   dplyr::rename(NO2=no2)%>%Time_processing
-  ##### The data with AQ to build a Model
-  
-  # data_MET <-read.csv(paste("../",sitename,".csv",sep=""))%>%
-  #   selectByDate(year=2017:2022)%>%Time_processing
-  # %>%
-  #   dplyr::rename(temp=air_temp) # 5 years met to replace
-  
-  
-  ##### The data base of the All years Met data, here we replace use the 10 years Met.
   
   
   Tuan_method_result_figure=Tuan_method(
@@ -99,10 +88,10 @@ for (sitename in sitenames) {
     samples_time = samples_time
   )
   ##### The function will write three files in the current working directory:
-  #### 1. Rdata save the all info we need.
-  #### 2. Every resample results for example, if the resample times is 150, it will contain all 150 times' result.
-  #### 3. The final result which is the Observation data and final WN data.
-  #### The function will output a figure at the plot pannel, which you can have a quick checl.
+  #### 1. Rdata saves all the info we need.
+  #### 2. For every resample result, for example, if the resample times is 150, it will contain all 150 times results.
+  #### 3. The final result is the Observation data and final WN data.
+  #### The function will output a figure at the plot panel, which you can have a quick check.
   
   
 }
