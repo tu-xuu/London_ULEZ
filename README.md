@@ -1,6 +1,7 @@
-# London_ULEZ
+# London_ULEZ code 
+This respiratory contains Tuan's methods to run Weather Normalization. 
 
-The LondonKC1alldata.csv is a testing data and the London_ULEZ_RMweather.R is a R code for runing weather normalisation.
+The main function
 
 If you have any questions please let me know.
 
