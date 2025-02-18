@@ -8,7 +8,5 @@ Time_processing.R and Tuan_method.R are the functions that will be sourced in th
 
 More information can be found in the main function.
 
-If you have any questions please let me know.
-
 # Reference
 https://github.com/tuanvvu/Air_quality_trend_analysis.git
