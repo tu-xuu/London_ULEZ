@@ -1,4 +1,4 @@
-Tuan_method=function(pollutant,startdate,enddate,mydata,data_MET,samples_time,sitename){
+RM_method=function(pollutant,startdate,enddate,mydata,data_MET,samples_time,sitename){
   pollutant=pollutant
   startdate=startdate
   enddate=enddate
