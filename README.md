@@ -44,7 +44,7 @@ The output includes time-varying ATT (average treatment effect on the treated), 
 - Tuan V. Vu et al. (2019):  
   [GitHub Repository for Tuan's Method](https://github.com/tuanvvu/Air_quality_trend_analysis)
 
-- Eben Michael et al. (2020):  
+- Eli Ben-Michael et al. (2020):  
   [Augmented Synthetic Control Method (augsynth)](https://github.com/ebenmichael/augsynth)
 
 ---
