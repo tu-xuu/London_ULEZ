@@ -20,7 +20,7 @@ The main script for weather normalization is `Main_code.R`, which includes:
 ### Supporting Scripts:
 
 - `Time_processing.R`: fills missing time components and standardizes date-time formats  
-- `RM_code.R`: contains the core methodology of Tuan’s weather normalization (see `Main_code.R` for usage details)
+- `RM_code.R`: contains the core methodology of weather normalization (see `Main_code.R` for usage details)
 
 ---
 
@@ -32,8 +32,9 @@ The script `ASCM_NO2.R` implements the ASCM to estimate the **causal impact** of
 
 - Located in `data/ASCM_NO2.Rdata`
 - Contains preprocessed WN data from:
-  - ~30 control sites across the UK  
   - 2 treated series: average **Urban Background (UB)** and **Urban Traffic (UT)** from Central London
+  - ~30 control sites across the UK （UB and UT）
+
 
 The output includes time-varying ATT (average treatment effect on the treated), confidence intervals, and model fit statistics.
 
