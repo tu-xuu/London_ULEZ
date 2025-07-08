@@ -49,7 +49,7 @@ sitenames <- c("Avg1_UT") # Sample data
 
 # Load meteorological data and apply time preprocessing
 # Customize the time window (e.g., 5 years, 10 years) for resampling as needed
-data_MET <- read.csv("./London_MET_2000_2024.csv") %>% Time_processing()
+data_MET <- readRDS(London_MET_2000_2024.Rdata)
 
 #### Loop through each site and run the meteorological normalization pipeline ####
 
