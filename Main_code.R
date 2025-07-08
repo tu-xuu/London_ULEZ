@@ -44,7 +44,7 @@ enddate   <- as.POSIXct("2020-03-08")
 
 
 # List of site names to be analyzed; each name should match the corresponding CSV file name
-sitenames <- c("AQ_MET_traj_London_Avg1_UT")
+sitenames <- c("Avg1_UT") # Sample data
 # Add more site names as needed
 
 # Load meteorological data and apply time preprocessing
