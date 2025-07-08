@@ -39,10 +39,13 @@ The output includes time-varying ATT (average treatment effect on the treated), 
 
 ---
 
+This combined WN-ASCM framework integrates and extends previous methodologies, enabling broader applicability across various evaluation scenarios.  
+
+---
 ## References
 
 - Tuan V. Vu et al. (2019):  
-  [GitHub Repository for Tuan's Method](https://github.com/tuanvvu/Air_quality_trend_analysis)
+  [Weather Normalization](https://github.com/tuanvvu/Air_quality_trend_analysis)
 
 - Eli Ben-Michael et al. (2020):  
   [Augmented Synthetic Control Method (augsynth)](https://github.com/ebenmichael/augsynth)
