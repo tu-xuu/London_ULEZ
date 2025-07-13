@@ -4,7 +4,7 @@ This repository contains the implementation of **Weather Normalization (WN)** me
 
 ---
 
-## Weather Normalization (Machine Learning)
+## Weather Normalization - Machine Learning
 
 The main script for weather normalization is `Main_code.R`, which includes:
 
@@ -24,7 +24,7 @@ The main script for weather normalization is `Main_code.R`, which includes:
 
 ---
 
-## Augmented Synthetic Control Method (ASCM)
+## Causal Inference - Augmented Synthetic Control Method (ASCM)
 
 The script `ASCM_NO2.R` implements the ASCM to estimate the **causal impact** of the ULEZ policy on weather-normalized NO₂ concentrations.
 
