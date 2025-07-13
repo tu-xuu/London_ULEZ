@@ -4,7 +4,7 @@ This repository contains the implementation of **Weather Normalization (WN)** me
 
 ---
 
-## Weather Normalization
+## Weather Normalization (Machine Learning)
 
 The main script for weather normalization is `Main_code.R`, which includes:
 
