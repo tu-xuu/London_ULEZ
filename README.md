@@ -43,6 +43,16 @@ The output includes time-varying ATT (average treatment effect on the treated), 
 This combined WN-ASCM framework integrates and extends previous methodologies, enabling broader applicability across various evaluation scenarios.  
 
 ---
+
+## Publication
+
+This work has been published as:
+
+- Tong et al. (2025):
+[Further improvement in London’s air quality demands more than the Ultra Low Emission Zone policy](https://doi.org/10.1038/s44407-025-00030-9)
+
+---
+
 ## References
 
 - Tuan V. Vu et al. (2019):  
