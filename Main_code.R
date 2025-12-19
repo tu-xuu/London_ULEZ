@@ -73,7 +73,7 @@ for (sitename in sitenames) {
   workingDirectory <<- "./"  # Shortcut for internal function use
   
   # Load air quality data for the site and preprocess it
-  mydata <- read.csv(paste0("../", sitename, ".csv")) %>% Time_processing()
+  mydata <- read.csv(paste0("../", sitename, ".csv")) %>% Time_processing()%>%left_join(data_MET,by='date')
   
   # Run the RM (meteorological normalization) method
   WN_result_figure <- RM_method(
