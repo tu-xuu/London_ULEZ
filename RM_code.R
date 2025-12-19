@@ -11,7 +11,7 @@ RM_method=function(pollutant,startdate,enddate,mydata,data_MET,samples_time,site
 
 
   data_prepared <- mydata %>%
-    dplyr::select(all_of(c(model_columns, pollutant))) %>%
+    dplyr::select(all_of(c(mycols, pollutant))) %>%
     dplyr::rename(value = all_of(pollutant)) %>%
     dplyr::filter(!is.na(ws)) %>%
     rmw_prepare_data(na.rm = TRUE)
@@ -56,7 +56,7 @@ data_MET <- data_MET %>%
                        "Mon" = 1, "Tue" = 2, "Wed" = 3, "Thu" = 4,
                        "Fri" = 5, "Sat" = 6, "Sun" = 7)
     ) %>%
-    dplyr::select(all_of(model_columns))
+    dplyr::select(all_of(mycols))
   
   # Extract matched observation set to apply resampled weather
   re_sample_MET<-mydata%>%
