@@ -14,7 +14,7 @@ The main script for weather normalization is `Main_code.R`, which includes:
 
 ### Input Data:
 
-- **Observation data**: located in the `data/` directory, e.g., `Avg1_UT.csv`, containing original air quality time series  
+- **Observation data**: located in the `data/` directory, e.g., `Avgdata_2017_2024.Rdata`, containing original air quality time series  
 - **Meteorological data**: `London_MET_2000_2024.Rdata`, which includes NOAA site-level observations and ERA5 reanalysis data
 
 ### Supporting Scripts:
@@ -32,7 +32,7 @@ The script `ASCM_NO2.R` implements the ASCM to estimate the **causal impact** of
 
 - Located in `data/ASCM_NO2.Rdata`
 - Contains preprocessed WN data from:
-  - 2 treated series: average **Urban Background (UB)** and **Urban Traffic (UT)** from Central London
+  -Treated series: average **Urban Background (UB)** and **Urban Traffic (UT)** from Central London
   - ~30 control sites across the UK （UB and UT）
 
 
