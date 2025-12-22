@@ -44,7 +44,10 @@ enddate   <- as.POSIXct("2020-03-08")
 
 
 # List of site names to be analyzed; each name should match the corresponding CSV file name
-sitenames <- c("Avg1_UT") # Sample data
+load('Avgdata_2017_2024.Rdata')
+names(results_list)
+sitenames=c("Urban Traffic_A1", "Urban Background_A1"
+           )  # Sample data
 # Add more site names as needed
 
 # Load meteorological data and apply time preprocessing
@@ -73,7 +76,7 @@ for (sitename in sitenames) {
   workingDirectory <<- "./"  # Shortcut for internal function use
   
   # Load air quality data for the site and preprocess it
-  mydata <- read.csv(paste0("../", sitename, ".csv")) %>% Time_processing()%>%left_join(data_MET,by='date')
+ mydata=results_list[[sitename]]%>%selectByDate(start=startdate,end=enddate)%>%left_join(data_MET,by='date')
   
   # Run the RM (meteorological normalization) method
   WN_result_figure <- RM_method(
