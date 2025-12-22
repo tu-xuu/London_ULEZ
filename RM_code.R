@@ -1,19 +1,40 @@
 RM_method=function(pollutant,startdate,enddate,mydata,data_MET,samples_time,sitename){
   
+  pollutant=pollutant
+  startdate=startdate
+  enddate=enddate
+  mydata=mydata
+  sitename=sitename
+  data_MET=data_MET
+  samples_time=samples_time
+  
   message(paste0("Running RM_method for site: ", sitename))
   workingDirectory <<- "./"  # Shortcut for internal path use
   model_start_time <- Sys.time()
+
+  mydata $date_unix  <- as.numeric(mydata $date)
+  mydata $weekday <- weekdays(mydata $date, abbreviate = TRUE) 
+  mydata $weekday[which(mydata $weekday == "Mon")] = 1
+  mydata $weekday[which(mydata $weekday == "Tue")] = 2
+  mydata $weekday[which(mydata $weekday == "Wed")] = 3
+  mydata $weekday[which(mydata $weekday == "Thu")] = 4
+  mydata $weekday[which(mydata $weekday == "Fri")] = 5
+  mydata $weekday[which(mydata $weekday == "Sat")] = 6
+  mydata $weekday[which(mydata $weekday == "Sun")] = 7
+  mydata $hour <- lubridate::hour(mydata $date)
+  mydata $day_julian <- lubridate::yday(mydata $date)
 
   # Define columns used in the model
   mycols=c('date',
     "date_unix","day_julian", "weekday", "hour", 
     "temp",  "RH", "ws","wd",'ssr','tp','blh','tcc','sp')
 
+  mydata=mydata%>%select(c(mycols,pollutant             
+                           ))
 
-  data_prepared <- mydata %>%
-    dplyr::select(all_of(c(mycols, pollutant))) %>%
-    dplyr::rename(value = all_of(pollutant)) %>%
-    dplyr::filter(!is.na(ws)) %>%
+  data_prepared <- mydata%>% 
+    filter(!is.na(ws)) %>% 
+    dplyr::rename(value = pollutant) %>% 
     rmw_prepare_data(na.rm = TRUE)
   
   # Print model training info
@@ -42,21 +63,21 @@ RM_method=function(pollutant,startdate,enddate,mydata,data_MET,samples_time,site
   
 ### ==== Step 2: Prepare MET Resample Base ==== ###
   
-data_MET <- data_MET %>%
-    mutate(
-      date_unix = as.numeric(date),
-      week = lubridate::week(date),
-      weekday = weekdays(date, abbreviate = TRUE),
-      hour = lubridate::hour(date),
-      month = lubridate::month(date),
-      day_julian = lubridate::yday(date)
-    ) %>%
-    mutate(
-      weekday = recode(weekday,
-                       "Mon" = 1, "Tue" = 2, "Wed" = 3, "Thu" = 4,
-                       "Fri" = 5, "Sat" = 6, "Sun" = 7)
-    ) %>%
-    dplyr::select(all_of(mycols))
+  data_MET $date_unix  <- as.numeric(data_MET $date)
+  data_MET $week <-lubridate:: week(data_MET$date)
+  data_MET $weekday <- weekdays(data_MET $date, abbreviate = TRUE) 
+  data_MET $weekday[which(data_MET $weekday == "Mon")] = 1
+  data_MET $weekday[which(data_MET $weekday == "Tue")] = 2
+  data_MET $weekday[which(data_MET $weekday == "Wed")] = 3
+  data_MET $weekday[which(data_MET $weekday == "Thu")] = 4
+  data_MET $weekday[which(data_MET $weekday == "Fri")] = 5
+  data_MET $weekday[which(data_MET $weekday == "Sat")] = 6
+  data_MET $weekday[which(data_MET $weekday == "Sun")] = 7
+  data_MET $hour <- lubridate::hour(data_MET $date)
+  data_MET $month <- lubridate::month(data_MET $date)
+  data_MET $day_julian <- lubridate::yday(data_MET $date)
+  
+  data_MET =data_MET %>%select(mycols)
   
   # Extract matched observation set to apply resampled weather
   re_sample_MET<-mydata%>%
@@ -97,14 +118,13 @@ data_MET <- data_MET %>%
   
   prediction <- function (n) {
     for (i in 1:n) {
-      re_MET <- ldply(1:nrow(data_MET), new_met, .parallel = TRUE) # Using parallel
+      re_MET <- ldply(1:nrow(re_sample_MET), new_met, .parallel = TRUE) # Using parallel
       re_sample_MET[, cols_to_replace] <- re_MET[, cols_to_replace] ### Replaced old MET by generated MET
       prediction_value<- rmw_predict( ### RUN Random Forest model with new MET dataset
         RF_model$model, 
         df= rmw_prepare_data(re_sample_MET, value = pollutant))
       pred<-cbind(pred,prediction_value)}
     pred}
-  
    print(paste('Model is replacing, Your resample times is ',samples_time,sep=''))
    
    ### ==== Step 5: Generate Final Normalized Data ==== ###
@@ -118,8 +138,8 @@ data_MET <- data_MET %>%
   ### ==== Step 6: Save Results ==== ###
   ### File names 
   filenames1=paste(workingDirectory,"WN_data_", pollutant,'_',startdate,'_',enddate,'_',sitename,".csv",sep="")
-  filenames2=paste(workingDirectory,"Tuan_", pollutant,'_',startdate,'_',enddate,'_',sitename,"_results.csv",sep="")
-  Rfilename=paste(workingDirectory,"Tuan_",pollutant,'_', startdate,'_',enddate,'_',sitename,"_results.Rdata",sep="")
+  filenames2=paste(workingDirectory,"WN_", pollutant,'_',startdate,'_',enddate,'_',sitename,"_results.csv",sep="")
+  Rfilename=paste(workingDirectory,"WN_",pollutant,'_', startdate,'_',enddate,'_',sitename,"_results.Rdata",sep="")
   ### Save the prediction
   write.csv(final_weather_normalised,filenames1) ### Save all predictions
   
@@ -128,7 +148,7 @@ data_MET <- data_MET %>%
   
   data_compare <- data_compare %>% dplyr:: rename(WN_data=final,Observed_data=pollutant) %>%
     select(date,WN_data,Observed_data)
-  
+  data_compare$site=sitename
   p=timePlot(data_compare,pollutant=c("WN_data", "Observed_data"), 
            lwd=c(1,2), group=TRUE, lty=c(1,1),avg.time ="week",
            key.position="top",cols=c("darkgreen","firebrick4"),
