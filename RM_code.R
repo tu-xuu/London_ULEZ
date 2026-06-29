@@ -99,8 +99,8 @@ RM_method=function(pollutant,startdate,enddate,mydata,data_MET,samples_time,site
   ##Function to generated the new- weather from original weather
  
   new_met<-function (i) {
-    hour_1 <- data_MET[i, "hour"]
-    day_1 <- data_MET[i, "day_julian"] 
+    hour_1 <- re_sample_MET[i, "hour"]
+    day_1 <- re_sample_MET[i, "day_julian"] 
     if(day_1 <= 14){
       MET_sample<-data_MET %>% filter(hour==hour_1)  %>% filter(day_julian>= 365 + day_1-14 |day_julian <= day_1 +14)  %>% sample_n (1)}
     if(day_1 > 14 & day_1<352){
